@@ -20,7 +20,7 @@
         xfbml      : true
       });
 
-      // Additional initialization code such as adding Event Listeners goes here
+      FB.Canvas.setAutoGrow();
     };
 
     // Load the SDK asynchronously
@@ -34,8 +34,6 @@
   </script>
 
   <div class="fb-fangate">
-    {{ fangate }}
-
     <div class="fb-fangate-content {% if liked %}fb-fan{% else %}fb-nonfan{% endif %}">
       {% if article %}
         {% include "article/content.html" with article=article %}
