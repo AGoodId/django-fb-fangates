@@ -13,7 +13,11 @@ class FanGate(BeGoodModel):
   fan_article = models.ForeignKey(Article, verbose_name=_('article for fans'), related_name='fan_articles', blank=True, null=True)
   show_fan_content = models.BooleanField(_('show fan specific content'), default=False)
   app_id = models.CharField(_('app ID'), max_length=255)
-  
+
+  class Meta:
+    verbose_name = _('Facebook Fan Gate')
+    verbose_name_plural = _('Facebook Fan Gates')
+
   def __unicode__(self):
    return self.title
 
