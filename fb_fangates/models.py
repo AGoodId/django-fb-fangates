@@ -6,6 +6,8 @@ from begood.models import BeGoodModel, Article
 
 
 class FanGate(BeGoodModel):
+  """A model for Facebook Fan Gates, for use in Facebook Fan Page Tabs.
+  """
   title = models.CharField(_('title'), max_length=255)
   non_fan_content = models.TextField(_('content for prospective fans'), blank=True)
   fan_content = models.TextField(_('content for fans'), blank=True)
