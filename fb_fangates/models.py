@@ -1,12 +1,17 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from begood.models import BeGoodModel
+
+from begood.models import BeGoodModel, Article
+
 
 class FanGate(BeGoodModel):
   title = models.CharField(_('title'), max_length=255)
   non_fan_content = models.TextField(_('content for prospective fans'), blank=True)
   fan_content = models.TextField(_('content for fans'), blank=True)
+  non_fan_article = models.ForeignKey(Article, verbose_name=_('article for prospective fans'), related_name='non_fan_articles', blank=True, null=True)
+  fan_article = models.ForeignKey(Article, verbose_name=_('article for fans'), related_name='fan_articles', blank=True, null=True)
+  show_fan_content = models.BooleanField(_('show fan specific content'), default=False)
   app_id = models.CharField(_('app ID'), max_length=255)
   
   def __unicode__(self):

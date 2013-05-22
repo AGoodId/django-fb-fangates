@@ -1,7 +1,12 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+	<meta charset="utf-8" />
+	<meta name="robots" content="noindex, nofollow" />
+
+	<title>{{ fangate.title }}</title>
 </head>
-<body>
+<body id="fb-iframe" class="home hentry" style="background: transparent;">
   {% load url from future %}
   <div id="fb-root"></div>
   <script>
@@ -31,8 +36,12 @@
   <div class="fb-fangate">
     {{ fangate }}
 
-    <div class="fb-fangate-content">
-      {{ content }}
+    <div class="fb-fangate-content {% if liked %}fb-fan{% else %}fb-nonfan{% endif %}">
+      {% if article %}
+        {% include "article/content.html" with article=article %}
+      {% else %}
+        {{ content }}
+      {% endif %}
     </div>
   </div>
 </body>

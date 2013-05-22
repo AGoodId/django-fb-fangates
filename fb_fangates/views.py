@@ -20,8 +20,7 @@ class FanGateView(DetailView):
   def get_context_data(self, **kwargs):
     context = super(FanGateView, self).get_context_data(**kwargs)
 
-    # Default values
-    content = context['fangate'].non_fan_content
+    # Default value
     liked = False
 
     # Parse data in the ``signed_request`` provided by Facebook
@@ -31,10 +30,17 @@ class FanGateView(DetailView):
       padded_payload = payload.replace('-_', '+/') + '=' * (4 - len(payload) % 4)
       fb_user_data = json.loads(base64.b64decode(padded_payload))
       if fb_user_data['page']['liked']:
-        content = context['fangate'].fan_content
         liked = True
 
+    # Fetch content to show
+    if liked and context['fangate'].show_fan_content:
+      article = context['fangate'].fan_article
+      content = context['fangate'].fan_content
+    else:
+      article = context['fangate'].non_fan_article
+      content = context['fangate'].non_fan_content
+
     # Update context and return
-    context.update(locals())
+    context.update({'liked': True, 'content': content, 'article': article})
 
     return context
