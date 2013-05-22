@@ -5,8 +5,10 @@ from django.utils.translation import ugettext as _
 
 
 from begood.contrib.admin.widgets import WysiwygTextarea
+from begood.models import Article
 from begood_sites.admin import SiteModelAdmin
 from fb_fangates.models import FanGate
+from outliner.forms import OutlinerChoiceField
 
 
 class FanGateAdminForm(forms.ModelForm):
@@ -39,6 +41,23 @@ class FanGateAdmin(SiteModelAdmin):
     (_('For fans'), {'fields': ['show_fan_content', 'fan_article', 'fan_content']})
   ]
   search_fields = ['title', 'non_fan_content', 'fan_content']
+  
+  def formfield_for_dbfield(self, field, **kwargs):
+    """Extends the default formfield_for_dbfield and makes sure the article FK
+    widgets are rendered correctly.
+    """
+    # Special handling of article FK:s
+    if field.name == 'fan_article' or field.name == 'non_fan_article':
+      article_qs = Article.on_site.get_query_set()
+      # Initiate field with a nested ModelChoice widget
+      return OutlinerChoiceField(
+        article_qs,
+        level_indicator=u'&nbsp;&nbsp;&nbsp;',
+        required=False,
+        empty_label=None
+      )
+    # Default
+    return super(FanGateAdmin, self).formfield_for_dbfield(field, **kwargs)
 
 
 admin.site.register(FanGate, FanGateAdmin)
