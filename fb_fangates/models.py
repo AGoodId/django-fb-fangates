@@ -9,11 +9,17 @@ class FanGate(BeGoodModel):
   """A model for Facebook Fan Gates, for use in Facebook Fan Page Tabs.
   """
   title = models.CharField(_('title'), max_length=255)
-  non_fan_content = models.TextField(_('content for prospective fans'), blank=True)
+  non_fan_content = models.TextField(_('content for prospective fans'),
+    blank=True)
   fan_content = models.TextField(_('content for fans'), blank=True)
-  non_fan_article = models.ForeignKey(Article, verbose_name=_('article for prospective fans'), related_name='non_fan_articles', blank=True, null=True)
-  fan_article = models.ForeignKey(Article, verbose_name=_('article for fans'), related_name='fan_articles', blank=True, null=True)
-  show_fan_content = models.BooleanField(_('show fan specific content'), default=False)
+  non_fan_article = models.ForeignKey(Article,
+    verbose_name=_('article for prospective fans'),
+    related_name='non_fan_articles', blank=True, null=True)
+  fan_article = models.ForeignKey(Article,
+    verbose_name=_('article for fans'),
+    related_name='fan_articles', blank=True, null=True)
+  show_fan_content = models.BooleanField(_('show fan specific content'),
+    default=False)
   app_id = models.CharField(_('app ID'), max_length=255)
 
   class Meta:
