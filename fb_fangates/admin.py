@@ -54,7 +54,7 @@ class FanGateAdmin(SiteModelAdmin):
         article_qs,
         level_indicator=u'&nbsp;&nbsp;&nbsp;',
         required=False,
-        empty_label=None
+        empty_label='---------'
       )
     # Default
     return super(FanGateAdmin, self).formfield_for_dbfield(field, **kwargs)
