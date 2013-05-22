@@ -40,7 +40,8 @@
       {% if article %}
         {% include "article/content.html" with article=article %}
       {% else %}
-        {{ content }}
+        {% load begood_util_tags shortcode_filters hotlinks %}
+        {{ content|shortcodes:request|obfuscate_email|hotlinks|safe }}
       {% endif %}
     </div>
   </div>
