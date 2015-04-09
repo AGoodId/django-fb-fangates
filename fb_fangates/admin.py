@@ -16,6 +16,7 @@ class FanGateAdminForm(forms.ModelForm):
   """
   class Meta:
     model = FanGate
+    fields = '__all__'
 
   def __init__(self, *args, **kwargs):
     super(FanGateAdminForm, self).__init__(*args, **kwargs)
