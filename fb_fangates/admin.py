@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import admin
 from django import forms
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 
 from begood.contrib.admin.widgets import WysiwygTextarea
